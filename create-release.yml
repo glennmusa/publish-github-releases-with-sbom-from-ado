@@ -12,6 +12,7 @@ trigger: none
 # GitHub Release
 # Create, edit, or delete a GitHub release
 # https://github.com/Microsoft/azure-pipelines-tasks/tree/master/Tasks/GitHubReleaseV0
+steps:
 - task: GitHubRelease@0
   inputs:
     gitHubConnection: Azure
