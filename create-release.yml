@@ -57,6 +57,14 @@ steps:
     rm -rf .git
   displayName: 'Restore .git in sources dir and remove .git in artifacts dir'
 
+- bash: |
+    find $(Build.ArtifactStagingDirectory) -maxdepth 2
+  displayName: 'list whats in Build.ArtifactStagingDirectory'
+
+- bash: |
+    find $(Build.SourcesDirectory) -maxdepth 2
+  displayName: 'list whats in Build.SourcesDirectory
+
 # https://github.com/Microsoft/azure-pipelines-tasks/tree/master/Tasks/GitHubReleaseV0
 - task: GitHubRelease@0
   displayName: 'Generate GitHub Release'
@@ -68,8 +76,7 @@ steps:
     tagSource: 'manual'
     tag: '${{ parameters.tag }}'
     title: 'MLZ - ${{ parameters.tag }}'
-    assets: |
-      '$(Build.ArtifactStagingDirectory)/**'
+    assets: '$(Build.ArtifactStagingDirectory)/**'
     isDraft: ${{ parameters.isDraft }}
     addChangeLog: true
     compareWith: 'lastFullRelease'
