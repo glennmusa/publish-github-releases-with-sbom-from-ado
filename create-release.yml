@@ -19,6 +19,7 @@ steps:
     cp -r .git $(Build.ArtifactStagingDirectory)
     rm -rf .git
   displayName: 'Temporarily move .git so it is not a part of the SBOM'
+
 - task: AzureArtifacts.manifest-generator-task.manifest-generator-task.ManifestGeneratorTask@0
   displayName: 'Generate SBOM'
   inputs:
@@ -39,10 +40,9 @@ steps:
   displayName: 'Pretty Print SBOM'
 
 - bash: |
-    cd $(Build.ArtifactStagingDirectory)
-    cp -r .git $(Build.SourcesDirectory)
-    rm -rf .git
-  displayName: 'Restore .git'
+    cd $(Build.SourcesDirectory)
+    cp -r _manifest $(Build.ArtifactStagingDirectory)
+  displayName: 'Add SBOM to artifact staging directory'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish SBOM as Build Artifact'
@@ -50,6 +50,12 @@ steps:
     PathtoPublish: '$(Build.SourcesDirectory)/_manifest'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- bash: |
+    cd $(Build.ArtifactStagingDirectory)
+    cp -r .git $(Build.SourcesDirectory)
+    rm -rf .git
+  displayName: 'Restore .git in sources dir and remove .git in artifacts dir'
 
 # https://github.com/Microsoft/azure-pipelines-tasks/tree/master/Tasks/GitHubReleaseV0
 - task: GitHubRelease@0
