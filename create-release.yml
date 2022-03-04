@@ -68,7 +68,7 @@ steps:
     tagSource: 'manual'
     tag: '${{ parameters.tag }}'
     title: 'MLZ - ${{ parameters.tag }}'
-    assets:
+    assets: |
       '$(Build.ArtifactStagingDirectory)/*'
       '$(Build.ArtifactStagingDirectory)/_manifest'
     isDraft: ${{ parameters.isDraft }}
