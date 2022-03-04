@@ -70,7 +70,7 @@ steps:
     title: 'MLZ - ${{ parameters.tag }}'
     assets: |
       '$(Build.ArtifactStagingDirectory)/*'
-      '$(Build.ArtifactStagingDirectory)/_manifest'
+      '$(Build.SourcesDirectory)/_manifest/*'
     isDraft: ${{ parameters.isDraft }}
     addChangeLog: true
     compareWith: 'lastFullRelease'
