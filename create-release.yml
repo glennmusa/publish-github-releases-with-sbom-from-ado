@@ -51,11 +51,11 @@ steps:
     ArtifactName: 'drop'
     publishLocation: 'Container'
 
-- bash: |
-    cd $(Build.ArtifactStagingDirectory)
-    cp -r .git $(Build.SourcesDirectory)
-    rm -rf .git
-  displayName: 'Restore .git in sources dir and remove .git in artifacts dir'
+# - bash: |
+#     cd $(Build.ArtifactStagingDirectory)
+#     cp -r .git $(Build.SourcesDirectory)
+#     rm -rf .git
+#   displayName: 'Restore .git in sources dir and remove .git in artifacts dir'
 
 # - bash: |
 #     find $(Build.ArtifactStagingDirectory) -maxdepth 2
